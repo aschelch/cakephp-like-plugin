@@ -35,6 +35,13 @@ class LikeFixture extends CakeTestFixture {
 			'user_id' => 1,
 			'created' => '2012-07-20 17:59:09'
 		),
+		array(
+			'id' => 2,
+			'model' => 'Comment',
+			'foreign_id' => 1,
+			'user_id' => 1,
+			'created' => '2012-07-20 19:59:09'
+		),
 	);
 
 }

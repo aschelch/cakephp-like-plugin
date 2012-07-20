@@ -72,9 +72,9 @@ class LikeableBehaviorTest extends CakeTestCase{
 	public function testLike(){
 		$user_id = 2;
 		$post_id = 1;
-		$this->assertEquals($this->Post->Like->find('count'), 1);
-		$this->Post->like($post_id, $user_id);
 		$this->assertEquals($this->Post->Like->find('count'), 2);
+		$this->Post->like($post_id, $user_id);
+		$this->assertEquals($this->Post->Like->find('count'), 3);
 	}
 	
 	public function testDislikeWithNotExistingPost(){
@@ -94,9 +94,19 @@ class LikeableBehaviorTest extends CakeTestCase{
 	public function testDislike(){
 		$user_id = 1;
 		$post_id = 1;
-		$this->assertEquals($this->Post->Like->find('count'), 1);
+		$this->assertEquals($this->Post->Like->find('count'), 2);
 		$this->Post->dislike($post_id, $user_id);
-		$this->assertEquals($this->Post->Like->find('count'), 0);
+		$this->assertEquals($this->Post->Like->find('count'), 1);
+	}
+	
+	public function testCounterCache(){
+		$post_id = 1;
+		$user_id = 2;
+		$this->assertEquals(intval($this->Post->field('like_count', array('Post.id'=>$post_id))), 1);
+		$this->Post->like($post_id, $user_id);
+		$this->assertEquals(intval($this->Post->field('like_count', array('Post.id'=>$post_id))), 2);
+		$this->Post->dislike($post_id, $user_id);
+		$this->assertEquals(intval($this->Post->field('like_count', array('Post.id'=>$post_id))), 1);
 	}
 	
 	public function testFindLikedPost(){

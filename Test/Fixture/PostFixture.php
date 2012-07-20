@@ -41,7 +41,7 @@ class PostFixture extends CakeTestFixture {
 			'title' => 'My second post',
 			'content' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
 			'created' => '2012-07-20 17:49:11',
-			'like_count' => 1
+			'like_count' => 0
 		),
 	);
 }

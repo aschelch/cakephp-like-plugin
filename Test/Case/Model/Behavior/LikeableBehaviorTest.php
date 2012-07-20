@@ -110,10 +110,14 @@ class LikeableBehaviorTest extends CakeTestCase{
 	}
 	
 	public function testFindLikedPost(){
+		
+		debug($this->Post->find('liked', array('conditions'=>array('Post.id'=>1))));
 		//TODO Test find('liked)
 	}
 	
 	public function testFindMostLikedPost(){
+		
+		//debug($this->Post->find('most_liked'));
 		//TODO Test find('most_liked)
 	}
 	

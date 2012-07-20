@@ -11,6 +11,11 @@ class LikeableBehavior extends ModelBehavior{
 		'counterCache' => true
 	);
 	
+	public $mapMethods = array(
+		'/^_findLiked$/' => '_findLiked',
+		'/^_findMostLiked$/' => '_findMostLiked'
+	);
+	
 	public function setup(Model $Model, $settings) {
 		if (!isset($this->settings[$Model->alias])) {
 			$this->settings[$Model->alias] = $this->defaultSettings;
@@ -20,6 +25,9 @@ class LikeableBehavior extends ModelBehavior{
 			$this->settings[$Model->alias], 
 			(array)$settings
 		);
+		
+		$Model->findMethods['liked'] = true;
+		//$Model->findMethods['most_liked'] = true;
 		
 		// bind the Like model to the current model
 		$Model->bindModel(array(
@@ -123,13 +131,14 @@ class LikeableBehavior extends ModelBehavior{
 	}
 	
 	/**
-	 * Custom find query to get the liked Model item
+	 * Custom find query to get the liked item
 	 *
 	 * @example $this->Post->find('liked', array('limit'=>5));
 	 */
-	protected function _findLiked($state, $query, $results = array()){
+	public function _findLiked(Model $model, $method, $state, $query, $results = array()){
 		if ($state == 'before') {
-	
+			debug($query);
+			
 			return $query;
 		}
 		return $results;
@@ -140,9 +149,9 @@ class LikeableBehavior extends ModelBehavior{
 	 *
 	 * @example $this->Post->find('most_liked', array('limit'=>5));
 	 */
-	protected function _findMostLiked($state, $query, $results = array()){
+	public function _findMostLiked(Model $model, $method, $state, $query, $results = array()){
 		if ($state == 'before') {
-			//TODO Order by number of likes
+			
 			return $query;
 		}
 		return $results;

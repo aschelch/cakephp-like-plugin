@@ -155,4 +155,29 @@ class LikeableBehavior extends ModelBehavior{
 		}
 		return $results;
 	}
+	
+	/**
+	 * Find item liked by a specific user
+	 * 
+	 * @example $this->Post->findLikedBy($this->Auth->user('id'));
+	 * @param Model $Model
+	 * @param int $user_id ID of the user
+	 */
+	public function findLikedBy(Model $Model, $user_id){
+		$Model->Like->recursive = -1;
+		$likedItem = $Model->Like->find('all', array(
+			'fields' => array('Like.foreign_id'),
+			'conditions' => array(
+				'Like.model' => $Model->alias,
+				'Like.user_id' => $user_id
+			)
+		));
+		
+		if(empty($likedItem)){
+			return array();
+		}
+			
+		$likedItemIds = Set::classicExtract($likedItem, '{n}.Like.foreign_id');
+		return $Model->findAllById($likedItemIds);
+	}
 }

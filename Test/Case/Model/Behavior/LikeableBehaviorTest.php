@@ -129,4 +129,11 @@ class LikeableBehaviorTest extends CakeTestCase{
 		$this->assertEquals($result[1]['Post']['id'], 2);
 	}
 	
+	public function testFindLikedPostByUser(){
+		$user_id = 1;
+		$result = $this->Post->findLikedBy($user_id);
+		$this->assertEquals(count($result), 1);
+		$this->assertEquals($result[0]['Post']['id'], 1);
+	}
+	
 }

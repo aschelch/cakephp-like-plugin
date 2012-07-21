@@ -27,7 +27,7 @@ class LikeableBehavior extends ModelBehavior{
 		);
 		
 		$Model->findMethods['liked'] = true;
-		//$Model->findMethods['most_liked'] = true;
+		$Model->findMethods['mostLiked'] = true;
 		
 		// bind the Like model to the current model
 		$Model->bindModel(array(
@@ -135,10 +135,9 @@ class LikeableBehavior extends ModelBehavior{
 	 *
 	 * @example $this->Post->find('liked', array('limit'=>5));
 	 */
-	public function _findLiked(Model $model, $method, $state, $query, $results = array()){
+	public function _findLiked(Model $Model, $method, $state, $query, $results = array()){
 		if ($state == 'before') {
-			debug($query);
-			
+			$query['conditions'][$Model->alias.'.like_count >'] = 0;
 			return $query;
 		}
 		return $results;
@@ -149,9 +148,9 @@ class LikeableBehavior extends ModelBehavior{
 	 *
 	 * @example $this->Post->find('most_liked', array('limit'=>5));
 	 */
-	public function _findMostLiked(Model $model, $method, $state, $query, $results = array()){
+	public function _findMostLiked(Model $Model, $method, $state, $query, $results = array()){
 		if ($state == 'before') {
-			
+			$query['order'][$Model->alias.'.like_count '] = 'DESC';
 			return $query;
 		}
 		return $results;

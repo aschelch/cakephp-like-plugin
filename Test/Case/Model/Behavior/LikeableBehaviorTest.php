@@ -110,15 +110,23 @@ class LikeableBehaviorTest extends CakeTestCase{
 	}
 	
 	public function testFindLikedPost(){
-		
-		debug($this->Post->find('liked', array('conditions'=>array('Post.id'=>1))));
-		//TODO Test find('liked)
+		$this->assertEquals(count($this->Post->find('liked')), 1);
+		$this->Post->like(2, 2);
+		$this->assertEquals(count($this->Post->find('liked')), 2);
+		$this->Post->dislike(2, 2);
+		$this->Post->dislike(1, 1);
+		$this->assertEquals(count($this->Post->find('liked')), 0);
 	}
 	
 	public function testFindMostLikedPost(){
+		$this->Post->like(2, 2);
+		$this->Post->like(1, 2);
 		
-		//debug($this->Post->find('most_liked'));
-		//TODO Test find('most_liked)
+		$result = $this->Post->find('mostLiked');
+		
+		$this->assertEquals(count($result), 2);
+		$this->assertEquals($result[0]['Post']['id'], 1);
+		$this->assertEquals($result[1]['Post']['id'], 2);
 	}
 	
 }

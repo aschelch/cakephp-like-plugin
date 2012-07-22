@@ -58,7 +58,7 @@ class LikeableBehavior extends ModelBehavior{
 	public function afterFind(Model $Model, $results, $primary){
 		foreach($results as $k => $result){
 			if(!empty($result['Like']) && AuthComponent::user('id')){
-				$results[$k]['Post']['is_liked_by_current_user'] = in_array(AuthComponent::user('id'),Set::classicExtract($result['Like'], '{n}.id'));
+				$results[$k][$Model->alias]['is_liked_by_current_user'] = in_array(AuthComponent::user('id'),Set::classicExtract($result['Like'], '{n}.id'));
 			}	
 		}
 		return $results;

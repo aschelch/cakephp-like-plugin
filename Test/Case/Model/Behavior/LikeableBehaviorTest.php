@@ -136,4 +136,8 @@ class LikeableBehaviorTest extends CakeTestCase{
 		$this->assertEquals($result[0]['Post']['id'], 1);
 	}
 	
+	public function testFindWithIsLikedByCurrentUserField(){
+		//TODO Test with AuthCompenent...
+	}
+	
 }

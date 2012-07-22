@@ -54,6 +54,16 @@ class LikeableBehavior extends ModelBehavior{
 		), false);
 	}
 	
+	
+	public function afterFind(Model $Model, $results, $primary){
+		foreach($results as $k => $result){
+			if(!empty($result['Like']) && AuthComponent::user('id')){
+				$results[$k]['Post']['is_liked_by_current_user'] = in_array(AuthComponent::user('id'),Set::classicExtract($result['Like'], '{n}.id'));
+			}	
+		}
+		return $results;
+	}
+	
 	/**
 	 * Like an item
 	 * 

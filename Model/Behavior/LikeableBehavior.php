@@ -92,6 +92,8 @@ class LikeableBehavior extends ModelBehavior{
 				'user_id' => $user_id
 			)	
 		));
+		
+		$this->getEventManager()->dispatch(new CakeEvent('Plugin.Like.like', $this));
 	}
 	
 	/**
@@ -117,6 +119,8 @@ class LikeableBehavior extends ModelBehavior{
 		));
 		
 		$Model->Like->delete($like_id);
+		
+		$this->getEventManager()->dispatch(new CakeEvent('Plugin.Like.dislike', $this));
 	}
 	
 	/**

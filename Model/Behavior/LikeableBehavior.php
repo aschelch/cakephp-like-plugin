@@ -81,7 +81,7 @@ class LikeableBehavior extends ModelBehavior{
 	
 		// If the user already like this item
 		if($Model->isLikedBy($foreign_id, $user_id)){
-			throw new CakeException('Already liked');
+			throw new CakeException(__d('like', 'Already liked'));
 		}
 		
 		$Model->Like->create();

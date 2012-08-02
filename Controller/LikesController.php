@@ -8,17 +8,17 @@ class LikesController extends AppController{
 		$user_id = $this->Auth->user('id'); 
 		
 		if(!$user_id){
-			$this->Session->setFlash(__('You are not connected.'));
+			$this->Session->setFlash(__d('like', 'You are not connected.'));
 			return $this->redirect($referer);
 		}
 		
 		if(!$Model->Behaviors->attached('Likeable')){
-			$this->Session->setFlash(__('You cannot like this element.'));
+			$this->Session->setFlash(__d('like', 'You cannot like this element.'));
 			return $this->redirect($referer);
 		}
 		
 		if(!$Model->exists($foreing_id)){
-			$this->Session->setFlash(__('This element does not exist.'));
+			$this->Session->setFlash(__d('like', 'This element does not exist.'));
 			return $this->redirect($referer);
 		}
 		
@@ -32,17 +32,17 @@ class LikesController extends AppController{
 		$user_id = $this->Auth->user('id');
 	
 		if(!$user_id){
-			$this->Session->setFlash(__('You are not connected.'));
+			$this->Session->setFlash(__d('like', 'You are not connected.'));
 			return $this->redirect($referer);
 		}
 	
 		if(!$Model->Behaviors->attached('Likeable')){
-			$this->Session->setFlash(__('You cannot like this element.'));
+			$this->Session->setFlash(__d('like', 'You cannot like this element.'));
 			return $this->redirect($referer);
 		}
 	
 		if(!$Model->exists($foreing_id)){
-			$this->Session->setFlash(__('This element does not exist.'));
+			$this->Session->setFlash(__d('like', 'This element does not exist.'));
 			return $this->redirect($referer);
 		}
 	

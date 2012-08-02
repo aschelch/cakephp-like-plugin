@@ -93,7 +93,7 @@ class LikeableBehavior extends ModelBehavior{
 			)	
 		));
 		
-		$this->getEventManager()->dispatch(new CakeEvent('Plugin.Like.like', $this));
+		$Model->getEventManager()->dispatch(new CakeEvent('Plugin.Like.like', $this));
 	}
 	
 	/**
@@ -120,7 +120,7 @@ class LikeableBehavior extends ModelBehavior{
 		
 		$Model->Like->delete($like_id);
 		
-		$this->getEventManager()->dispatch(new CakeEvent('Plugin.Like.dislike', $this));
+		$Model->getEventManager()->dispatch(new CakeEvent('Plugin.Like.dislike', $this));
 	}
 	
 	/**

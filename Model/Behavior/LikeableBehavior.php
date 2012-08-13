@@ -1,6 +1,8 @@
 <?php
 
 App::uses('AuthComponent', 'Controller/Component');
+App::uses('NotLikedException', 'Like.Exception');
+App::uses('AlreadyLikedException', 'Like.Exception');
 
 class LikeableBehavior extends ModelBehavior{
 	
@@ -81,7 +83,7 @@ class LikeableBehavior extends ModelBehavior{
 	
 		// If the user already like this item
 		if($Model->isLikedBy($foreign_id, $user_id)){
-			throw new CakeException(__d('like', 'Already liked'));
+			throw new AlreadyLikedException();
 		}
 		
 		$Model->Like->create();
@@ -109,7 +111,7 @@ class LikeableBehavior extends ModelBehavior{
 		}
 		
 		if(!$Model->isLikedBy($foreign_id, $user_id)){
-			throw new CakeException('Not liked');
+			throw new NotLikedException();
 		}
 		
 		$like_id = $Model->Like->field('id', array(

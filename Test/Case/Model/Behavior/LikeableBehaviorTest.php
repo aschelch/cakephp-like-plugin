@@ -63,7 +63,7 @@ class LikeableBehaviorTest extends CakeTestCase{
 	}
 	
 	public function testLikeWithAlreadyLikedPost(){
-		$this->expectException('CakeException');
+		$this->expectException('AlreadyLikedException');
 		$user_id = 1;
 		$post_id = 1;
 		$this->Post->like($post_id, $user_id);
@@ -85,7 +85,7 @@ class LikeableBehaviorTest extends CakeTestCase{
 	}
 	
 	public function testDislikeWithNotLikedPost(){
-		$this->expectException('CakeException');
+		$this->expectException('NotLikedException');
 		$user_id = 1;
 		$post_id = 2;
 		$this->Post->dislike($post_id, $user_id);
@@ -136,8 +136,17 @@ class LikeableBehaviorTest extends CakeTestCase{
 		$this->assertEquals($result[0]['Post']['id'], 1);
 	}
 	
+	public function testFindLikedPostByUserWithoutLikedPost(){
+		$user_id = 2;
+		$result = $this->Post->findLikedBy($user_id);
+		$this->assertEquals(count($result), 0);
+	}
+	
 	public function testFindWithIsLikedByCurrentUserField(){
-		//TODO Test with AuthCompenent...
+		$post_id = 1;
+		$this->Post->recursive = 0;
+		$result = $this->Post->findById($post_id);
+		//$this->assertEqual(key_exists('is_liked_by_current_user', $result['Post']), true);
 	}
 	
 }

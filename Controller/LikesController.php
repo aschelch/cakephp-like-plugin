@@ -3,7 +3,7 @@
 class LikesController extends AppController{
 	
 	public function like($model_name, $foreing_id){
-		$Model = ClassRegistry::init($model_name);
+		$Model = ClassRegistry::init(Inflector::classify($model_name));
 		$referer = $this->referer('/');
 		$user_id = $this->Auth->user('id'); 
 		
@@ -27,7 +27,7 @@ class LikesController extends AppController{
 	}
 	
 	public function dislike($model_name, $foreing_id){
-		$Model = ClassRegistry::init($model_name);
+		$Model = ClassRegistry::init(Inflector::classify($model_name));
 		$referer = $this->referer('/');
 		$user_id = $this->Auth->user('id');
 	

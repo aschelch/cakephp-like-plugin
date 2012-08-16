@@ -95,7 +95,7 @@ class LikeableBehavior extends ModelBehavior{
 			)	
 		));
 		
-		$Model->getEventManager()->dispatch(new CakeEvent('Plugin.Like.like', $this));
+		$Model->getEventManager()->dispatch(new CakeEvent('Plugin.Like.like', $Model->Like));
 	}
 	
 	/**

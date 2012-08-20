@@ -114,15 +114,15 @@ class LikeableBehavior extends ModelBehavior{
 			throw new NotLikedException();
 		}
 		
-		$like_id = $Model->Like->field('id', array(
+		$like = $Model->Like->find('first', array(
 			'Like.model' => $Model->alias,
 			'Like.foreign_id' => $foreign_id,
 			'Like.user_id' => $user_id
 		));
 		
-		$Model->Like->delete($like_id);
+		$Model->Like->delete($like['Like']['id']);
 		
-		$Model->getEventManager()->dispatch(new CakeEvent('Plugin.Like.dislike', $Model->Like));
+		$Model->getEventManager()->dispatch(new CakeEvent('Plugin.Like.dislike', $like));
 	}
 	
 	/**

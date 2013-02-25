@@ -20,7 +20,7 @@ class LikeableBehavior extends ModelBehavior{
 		'/^_findMostLiked$/' => '_findMostLiked'
 	);
 	
-	public function setup(Model $Model, $settings) {
+	public function setup(Model $Model, $settings = array()) {
 		if (!isset($this->settings[$Model->alias])) {
 			$this->settings[$Model->alias] = $this->defaultSettings;
 		}

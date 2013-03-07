@@ -114,11 +114,11 @@ class LikeableBehavior extends ModelBehavior{
 			throw new NotLikedException();
 		}
 		
-		$like = $Model->Like->find('first', array(
+		$like = $Model->Like->find('first', array('conditions' => array(
 			'Like.model' => $Model->alias,
 			'Like.foreign_id' => $foreign_id,
 			'Like.user_id' => $user_id
-		));
+		)));
 		
 		$Model->Like->delete($like['Like']['id']);
 		

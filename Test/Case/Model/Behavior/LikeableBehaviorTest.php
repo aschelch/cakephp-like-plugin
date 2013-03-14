@@ -148,5 +148,15 @@ class LikeableBehaviorTest extends CakeTestCase{
 		$result = $this->Post->findById($post_id);
 		//$this->assertEqual(key_exists('is_liked_by_current_user', $result['Post']), true);
 	}
+
+	public function testDeleteLikesByDeletingPost(){
+		$this->assertEquals($this->Post->find('count'), 2);
+		$this->assertEquals($this->Post->Like->find('count'), 2);
+
+		$this->Post->delete(1);
+
+		$this->assertEquals($this->Post->Like->find('count'), 1);
+		$this->assertEquals($this->Post->find('count'), 1);
+	}
 	
 }

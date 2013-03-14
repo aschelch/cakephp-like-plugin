@@ -72,10 +72,18 @@ class LikeableBehavior extends ModelBehavior{
 	 * afterDelete callback
 	 */
 	public function afterDelete(Model $Model){
-		$Model->Like->deleteAll(array(
-			'model' => $Model->alias,
-			'foreign_id' => $Model->id
+		$likesToDelete = $Model->Like->find('list', array(
+			'conditions' => array(
+				'model' => $Model->alias,
+				'foreign_id' => $Model->id
+			)
 		));
+
+		if($likesToDelete != false){
+			$likesId = array_keys($likesToDelete);
+			$Model->Like->deleteAll(array('Like.id'=>$likesId));
+			$Model->getEventManager()->dispatch(new CakeEvent('Plugin.Like.delete', $Model->Like, $likesId));
+		}
 	}
 	
 	/**

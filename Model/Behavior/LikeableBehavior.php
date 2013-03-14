@@ -67,6 +67,16 @@ class LikeableBehavior extends ModelBehavior{
 		}
 		return $results;
 	}
+
+	/**
+	 * afterDelete callback
+	 */
+	public function afterDelete(Model $Model){
+		$Model->Like->deleteAll(array(
+			'model' => $Model->alias,
+			'foreign_id' => $Model->id
+		);
+	}
 	
 	/**
 	 * Like an item

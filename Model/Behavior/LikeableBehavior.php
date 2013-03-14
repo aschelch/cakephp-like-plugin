@@ -75,7 +75,7 @@ class LikeableBehavior extends ModelBehavior{
 		$Model->Like->deleteAll(array(
 			'model' => $Model->alias,
 			'foreign_id' => $Model->id
-		);
+		));
 	}
 	
 	/**

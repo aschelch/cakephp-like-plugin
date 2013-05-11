@@ -6,25 +6,25 @@ class LikeHelper extends AppHelper{
 		'Html', 'Text'
 	);
 	
-	public function like($model, $foreign_id){
+	public function like($model, $foreign_id, $option = array()){
 		return $this->Html->link(__d('like', 'Like'), array(
 			'plugin' => 'like',
 			'controller' => 'likes',
 			'action' => 'like',
 			$model,
 			$foreign_id
-		));
+		), $option);
 	}
 	
 	
-	public function dislike($model, $foreign_id){
+	public function dislike($model, $foreign_id, $option = array()){
 		return $this->Html->link(__d('like', 'Dislike'), array(
 			'plugin' => 'like',
 			'controller' => 'likes',
 			'action' => 'dislike',
 			$model,
 			$foreign_id
-		));
+		), $option);
 	}
 
 	public function display($likes, $userKey = 'username'){
